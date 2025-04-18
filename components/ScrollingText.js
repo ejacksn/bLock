@@ -7,16 +7,16 @@ export default function ScrollingText() {
     <ScrollDiv>
         <ul>
             <li>
-                <span>chainLink</span>
+                <span>bLock</span>
             </li>
             <li>
-                <span>chainLink</span>
+                <span>bLock</span>
             </li>
             <li>
-                <span>chainLink</span>
+                <span>bLock</span>
             </li>
             <li>
-                <span>chainLink</span>
+                <span>bLock</span>
             </li>
             
         </ul>

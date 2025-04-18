@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     --color1: #171819;
     --color2: #232425;
     --color3: #00bd46;
+    --color4: #a2a3a3;
 
   /* width */
   ::-webkit-scrollbar {

@@ -1,3 +1,21 @@
+import React from 'react';
+import PageSkeleton from "@/components/PageSkeleton";
+
+
 export default function Test() {
-  return <h1 style={{ color: 'black', padding: 20 }}>This page works</h1>;
+  return (
+  <PageSkeleton>
+      <div style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "red"
+      }}>
+
+      </div>
+
+
+
+  </PageSkeleton>
+  );
 }
+

@@ -8,7 +8,9 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
 
   // Variables to Carry Across Multiple Pages
-  const [user, setUser] = useState(undefined)
+  const [wallet, setWallet] = useState(null); // wallet address
+  const [user, setUser] = useState(undefined);
+  const [authenticated, setAuthenticated] = useState(false); // variable to track whether user is authenticated
 
   /*
     user object is like this:
@@ -48,7 +50,11 @@ return(
     <Context.Provider
     value={{
         user,
-        setUser
+        setUser,
+        authenticated,
+        setAuthenticated,
+        wallet,
+        setWallet
     }}
     >
       {children}

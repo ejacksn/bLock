@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-//import { useStateContext } from '@/context/StateContext'
+import { useStateContext } from '@/context/StateContext'
 //import {login, isEmailInUse} from '@/backend/Auth'
 
 //import { loginUser } from '@/backend/Auth' //login fucntion 
 import Link from 'next/link'
 import Navbar from '@/components/Dashboard/Navbar'
+
+import PageSkeleton from '@/components/PageSkeleton'
 const Login = () => {
 
+  const {authenticated, setAuthenticated } = useStateContext()
   //const { user, setUser } = useStateContext()
-  const [ wallet, setWallet ] = useState('')
+  const { wallet, setWallet } = useStateContext()
   
 
 
@@ -31,40 +34,44 @@ const Login = () => {
     }
     try{
       // PUT WALLET AUTHENTICATION AWAIT HERE
+      setAuthenticated(true) //set authenticated to true
+      setWallet(wallet) //set wallet address
       router.push('/dashboard') //redirect to dashboard
     }
     catch(error){
       console.log('login error', error)
       setLoginError(error.message) //set error message
+      
     }
     
   }
 
   return (
     <>
-    {/*<Navbar/>*/}
-    <CenterDiv>
-    <Section>
-        <Header>Authenticate</Header>
+    <PageSkeleton>
+      <CenterDiv>
+      <Section>
+          <Header>Authenticate</Header>
 
-        <OrganizingDiv>
-        
-        
-        
-        <Input type="text" placeholder="Wallet Address"value={wallet} onChange={(e) => setWallet(e.target.value)}/>
+          <OrganizingDiv>
+          
+          
+          
+          <Input type="text" placeholder="Wallet Address"value={wallet} onChange={(e) => setWallet(e.target.value)}/>
 
-        
+          
 
-        
+          
 
-        {loginError? <ErrorDiv>{loginError}</ErrorDiv> : null} {/*show error div on error*/}
+          {loginError? <ErrorDiv>{loginError}</ErrorDiv> : null} {/*show error div on error*/}
 
-        <MainButton onClick={()=>{handleLogin()}}>Login</MainButton>
+          <MainButton onClick={()=>{handleLogin()}}>Connect Wallet</MainButton>
 
-        </OrganizingDiv>
+          </OrganizingDiv>
 
-    </Section>
-    </CenterDiv>
+      </Section>
+      </CenterDiv>
+    </PageSkeleton>
     </>
   )
 }
@@ -73,8 +80,8 @@ const CenterDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 95vh;
-  background-color: #061003;
+  width: 100%;
+  background-color: var(--color1);
 
 `
 const OrganizingDiv = styled.div`
@@ -83,30 +90,33 @@ const OrganizingDiv = styled.div`
 `
 const Section = styled.section`
   display: block;
+  height: 25%;
   width: 50%;
   padding: 20px;
-  background-color: #AAAE7F;
+  background-color: var(--color2);
   border-radius: 8%;
-  border: 2px solid #AAAE7F;
+  border: none;
   padding: 20px;
 `;
 
 const Header = styled.h1`
   font-size: 24px; /* Adjusted for better scalability */
-  color: #061003;
+  color: var(--color4);
   font-family: 'Poppins', sans-serif;
+  text-align: center;
 `;
 
 const Input = styled.input`
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
-  border-radius:7px;;
+  border-radius:20px;
   
-  border: 2px #061003 solid;
+  border: 2px var(--color3) solid;
   height: 40px;
   margin: 1rem .5rem;
   padding-left: 7px;
-  background-color: #D0D6B3;
+  background-color: var(--color1);
+  color: var(--color4);
 
   
 
@@ -120,7 +130,7 @@ const InputTitle = styled.label` /* Changed to label for semantics */
 `;
 
 const MainButton = styled.button`
-  background-color: #061003;
+  background-color: var(--color3);
 
   color: #d0d6b3;
   font-family: 'Poppins', sans-serif;
@@ -130,6 +140,7 @@ const MainButton = styled.button`
   border-radius: 8px;
   width: 50%;
   align-self: center;
+  border: none;
   &:hover {
     background-color: #D0D6B3;
     color: #061003;
@@ -166,6 +177,10 @@ const ErrorDiv = styled.div`
   margin-top: 10px;
   text-align: center;
   color: red;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  
+  padding: 5px;
 `;
 
 

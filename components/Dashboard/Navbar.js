@@ -6,21 +6,37 @@ import { useStateContext } from '@/context/StateContext';
 import Home from '@/components/Dashboard/Home'
 import { GlobalStyle } from '@/pages/_app';
 
+import { useRouter } from 'next/router';
+
 
 
 //import { logoutUser } from '@/backend/Auth';
 const Navbar = () => {
-  const { user, setUser } = useStateContext()
+
+  const router = useRouter() //import router for redirecting
+  const { authenticated, setAuthenticated } = useStateContext()
+  const { wallet, setWallet } = useStateContext()
+
+  function logoutUser() {
+    setAuthenticated(false); //set authenticated to false
+    setWallet(null); //set wallet address to null
+    router.push('/'); //redirect to home page
+    
+    //logoutUser() //call logout function
+  }
 
   return (
     <Nav>
-      <Logo className="poppins-medium"onClick={() => {}} href="/">chainLink.</Logo>
-      <Home></Home>
+      <Logo className="poppins-medium"onClick={() => {}} href="/">bLock</Logo>
+      
       <NavLinks>
         
-        {user? //displayname if logged in on navbar + removes login/signup buttons
-        <UserText>Logged in as {user.displayName}</UserText>
-        
+        {authenticated? //displayname if logged in on navbar + removes login/signup buttons
+        <>
+        <UserText>Wallet Linked</UserText>
+        <ButtonLink href="/dashboard">My Capsules</ButtonLink>
+        <ButtonLink href="/capsules/create">Create a Capsule</ButtonLink>
+        </>
         : 
         <>
         <ButtonLink href="/auth/authenticate">Login</ButtonLink>
@@ -29,7 +45,7 @@ const Navbar = () => {
 }
       </NavLinks>
       <NavEnd>
-        { user? //logout button if logged in
+        { authenticated? //logout button if logged in
           <>
             <LogoutButton onClick={logoutUser}>Sign Out</LogoutButton>
           </>
@@ -44,23 +60,23 @@ const Navbar = () => {
 };
 
 const Nav = styled.nav`
-  background-color: #061003;
+  background-color: var(--color2);
   display: flex;
-  flex-direction:row;
+  flex-direction:column;
   justify-content: flex-start;
   align-items: center;
-  height: min(10vh, 50px);
+  height: 100vh;
   
-  width:100%;
+  width:20rem;
   
 `;
 
 const Logo = styled(Link)`
-  color: #D0D6B3;
+  color: var(--color4);
   text-decoration:none;
   font-size: 1.5rem;
   font-weight: bold;
-  padding-left: 1%;
+  
 
 `;
 
@@ -71,7 +87,7 @@ const NavLeft = styled.div`
 
 const NavLinks = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   
@@ -81,7 +97,7 @@ const NavLinks = styled.div`
 `;
 
 const ButtonLink = styled(Link)`
-  color: #D0D6B3;
+  color: var(--color4);
   text-decoration:none;
   padding: 0.5rem;
   font-family: poppins;
@@ -97,7 +113,7 @@ const ButtonLink = styled(Link)`
 `
 const LogoutButton = styled.button`
   text-color: #061003;
-  background-color: #D0D6B3;
+  background-color:#D0D6B3 ;
   border: 1px solid #061003;
   border-radius: 5px;
   text-decoration:none;

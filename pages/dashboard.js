@@ -5,6 +5,10 @@ import Navbar from '@/components/Dashboard/Navbar'
 import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router'
 
+import { GlobalStyle } from '@/pages/_app'
+
+import PageSkeleton from '@/components/PageSkeleton'
+
 
 
 
@@ -13,9 +17,26 @@ import { useRouter } from 'next/router'
 const Dashboard = () => {
 
 //   
-return(\
+return(
   <>
+  <PageSkeleton>
+    <Wrapper>
+      <span >
+        <SectionTitle>My Capsules</SectionTitle>
+        <CreateButton>+</CreateButton>
+        </span>
+      <CapsuleContainer>
+        <CapsuleCard></CapsuleCard>
+        <CapsuleCard></CapsuleCard>
+        <CapsuleCard></CapsuleCard>
+        
+      </CapsuleContainer>
 
+    </Wrapper>
+
+
+    
+  </PageSkeleton>
 
 
 
@@ -30,92 +51,62 @@ return(\
 
 
 //STYLED COMPONENTS
-const Section = styled.section`
-width: 100%;
-height: 100vh;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-background-color: var(--dark-primary);
-align-items: left;
-`
-
-
-
-const TopHeader = styled.h1`
-font-size: 4rem;
-display: flex;
-font-family: 'Poppins', sans-serif;
-color: var(--light-primary);
-margin-left: 20px;
-
-
-`
-const UserBoards = styled.div`
-margin-left: 20px;
-display: flex;
-flex-direction: column;
-white-space: nowrap;
-overflow-x: none;
-overflow-y: scroll;
-height: 100%;
-width: 70%;
-
-`
-const BoardCard = styled.div`
-border: 2px solid var(--mid-secondary);
-border-radius: 8px;
-display: flex;
-flex-direction: row;
-justify-content: flex-start;
-
-div{
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
-  margin-left: auto;
-}
-
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--color1);
+  padding-top: 20px;
 `
-const BoardTitle = styled.h2`
-color: var(--light-primary);
-font-size: 2rem;
-`
-const ViewButton = styled.a`
-width: 100px;
-display: flex;
-justify-content: center;
-background-color: var(--light-primary);
-color: var(--dark-primary);
-padding: 5px;
-text-decoration: none;
-font-family: 'Poppins', sans-serif;
-border-radius: 5px;
-
-&:hover{
-  background-color: var(--mid-secondary);
-}
-`
-const DeleteButton = styled.button`
-background-color: red;
-justify-self: flex-end;
-font-family: 'Poppins', sans-serif;
-font-size: 1rem;
-padding: 5px;
-border-radius: 5px;
-border-color: none;
-
-&:hover{
-  background-color: darkred;
-}
-`
-const NewBoardButton = styled.button`
-  margin-left: 1rem;
-  margin-bottom: 1rem;
-  padding: 10px 20px;
-  font-size: 16px;
+const SectionTitle = styled.text`
+  font-size: 2rem;
+  color: var(--color4);
+  margin-bottom: 20px;
   font-family: 'Poppins', sans-serif;
-  border-radius:7px;
-  background-color: var(--mid-secondary);
-  color: var(--dark-primary);
+  font-weight: 600;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  
+`
+
+const CapsuleContainer = styled.div`
+  display: flex;
+  flex-wrap: none;
+  flex-direction: row;
+  
+`
+const CapsuleCard = styled.div`
+  background-color: var(--color2);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+` 
+const CreateButton = styled.button`
+  background-color: var(--color3);
+  color: var(--color1);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+
+  &:hover {
+    background-color: var(--color1);
+    color: var(--color4);
+    border : 2px solid var(--color3);
+    }
 `
 
 
