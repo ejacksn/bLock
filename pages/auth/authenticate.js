@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { useStateContext } from '@/context/StateContext'
+//import { useStateContext } from '@/context/StateContext'
 //import {login, isEmailInUse} from '@/backend/Auth'
 
-import { loginUser } from '@/backend/Auth' //login fucntion 
+//import { loginUser } from '@/backend/Auth' //login fucntion 
 import Link from 'next/link'
 import Navbar from '@/components/Dashboard/Navbar'
 const Login = () => {
 
-  const { user, setUser } = useStateContext()
-  const [ email, setEmail ] = useState('')
-  const [ password, setPassword ] = useState('')
+  //const { user, setUser } = useStateContext()
+  const [ wallet, setWallet ] = useState('')
+  
 
-  const [username, setUsername] = useState('')
 
   const router = useRouter()
 
@@ -25,13 +24,13 @@ const Login = () => {
     setLoginError('') //clear error message
     
 
-    if (!email || !password) { // can't log in with blank fields, duh
-      setLoginError("All fields are required.");
+    if (!wallet) { // can't log in with blank fields, duh
+      setLoginError("Wallet Address Required.");
       return;
 
     }
     try{
-      await loginUser(email, password, setUser) //login function
+      // PUT WALLET AUTHENTICATION AWAIT HERE
       router.push('/dashboard') //redirect to dashboard
     }
     catch(error){
@@ -43,24 +42,24 @@ const Login = () => {
 
   return (
     <>
-    <Navbar/>
+    {/*<Navbar/>*/}
     <CenterDiv>
     <Section>
-        <Header>Login</Header>
+        <Header>Authenticate</Header>
 
         <OrganizingDiv>
         
-        <Input type="email" placeholder="email"value={email} onChange={(e) => setEmail(e.target.value)}/>
         
-        <Input type="password" placeholder="password"value={password} onChange={(e) => setPassword(e.target.value)}/>
+        
+        <Input type="text" placeholder="Wallet Address"value={wallet} onChange={(e) => setWallet(e.target.value)}/>
 
         
 
-        <UserAgreementText>By signing in, you automatically agree to our <UserAgreementSpan href='/legal/terms-and-conditions' rel="noopener noreferrer" target="_blank"> Terms and Conditions</UserAgreementSpan></UserAgreementText>
+        
 
         {loginError? <ErrorDiv>{loginError}</ErrorDiv> : null} {/*show error div on error*/}
 
-        <MainButton onClick={handleLogin}>Login</MainButton>
+        <MainButton onClick={()=>{handleLogin()}}>Login</MainButton>
 
         </OrganizingDiv>
 
@@ -144,19 +143,22 @@ const UserAgreementText = styled.p`
   text-align: center;
   font-family: 'Poppins', sans-serif;
   color: #061003;
-`;
+`
 
-const UserAgreementSpan = styled(Link)`
-  color: #061d03;
-  font-weight: bold;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-  &:not(:last-of-type)::after {
-    content: ', '; /* Adds comma between links */
-  }
-`;
+// const UserAgreementSpan = styled(Link)`
+//   color: #061d03;
+//   font-weight: bold;
+//   cursor: pointer;
+//   &:hover {
+//     text-decoration: underline;
+//   }
+//   &:not(:last-of-type)::after {
+//     content: ', '; /* Adds comma between links */
+//   }
+// `
+
+
+
 const ErrorDiv = styled.div`
   border: red solid 2px;
   border-radius: 8px;

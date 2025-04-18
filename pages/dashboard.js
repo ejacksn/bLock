@@ -7,101 +7,25 @@ import { useRouter } from 'next/router'
 
 
 
-import { getBoardsByUser, deleteBoard } from '@/backend/Database'
-import Board from './boards/[board]'
-import Create from './boards/create'
+
 
 
 const Dashboard = () => {
 
-  const { user } = useStateContext() ; 
-  const [boards, setBoards] = useState([]); //list of boards to display
-  const [isLoading, setIsLoading] = useState(true); //variable to use while boards are loadign
-
-  const router = useRouter();
-
-  const fetchBoards = async () => {
-
-    if (user){
-      setIsLoading(true); //set loading to true while fetching boards
-      
-      const userBoards = await getBoardsByUser(user.uid);
-      console.log("user's boards retrieved")
-      
-      setBoards(userBoards); //set state variable for boards so can render
-      setIsLoading(false); //set loading to false after boards are fetched
-    }
-
-  }
-
-  const handleDelete = async (boardId) => {
-    try{
-      await deleteBoard(boardId);
-      fetchBoards(); //refetch boards after deleting one to render the updated list
-    }
-    catch(error){
-      console.error("Error deleting board", error);
-    }
-  }
-    
-
-
-
-  useEffect(() => { //useffect to check if user is logged in and fetch boards if so
-    if(user===null){
-      router.push('/')
-    }else{
-      fetchBoards()
-
-    }
-  }, user)
+//   
+return(\
+  <>
 
 
 
 
 
 
-  return (
-    <>
-    <Navbar/>
-    <Section>
-      <TopHeader>
-        Dashboard
-      </TopHeader>
-      <Link href="/boards/create">
-        <NewBoardButton>Create Board</NewBoardButton>
-      </Link> {/*link to create board*/}
-      <UserBoards>
-        {boards.map(board=>(
-            <BoardCard key={board.id}>
-            <BoardTitle>{board.data.title}</BoardTitle>
-            <div>
-            <ViewButton href={`/boards/${board.id}`}>View</ViewButton> {/*link to view board*/}
-            <DeleteButton onClick={()=>handleDelete(board.id)}>Delete</DeleteButton> {/*button to delete board*/}
-            </div>
-
-            </BoardCard>
 
 
 
-
-
-
-        )
-        
-        
-        
-        
-        
-        
-        
-        ) //end map
-        }
-      </UserBoards>
-
-    </Section>
-    </>
-  )
+  </>
+)
 }
 
 

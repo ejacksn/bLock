@@ -10,6 +10,11 @@ export const GlobalStyle = createGlobalStyle`
     --dark-primary: #061003; 
     --mid-secondary: #AAAE7F;
     --light-primary: #D0D6B3;
+
+    --color1: #171819;
+    --color2: #232425;
+    --color3: #00bd46;
+
   /* width */
   ::-webkit-scrollbar {
     width: 10px;
@@ -70,8 +75,8 @@ export default function App({ Component, pageProps }) {
   return (
     <>
         <Head>
-          <title>chainLink</title>
-          <meta name='description' content='App for creating sharable boards of external links'/>
+          <title>bLock</title>
+          <meta name='description' content='App for creating virtual blockchain time capsules'/>
           <meta name='robots' content='index, follow'/>
           <link rel="apple-touch-icon" sizes="180x180" href="/favicon_package/apple-touch-icon.png"/>
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon_package/favicon-32x32.png"/>

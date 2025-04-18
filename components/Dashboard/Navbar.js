@@ -8,13 +8,13 @@ import { GlobalStyle } from '@/pages/_app';
 
 
 
-import { logoutUser } from '@/backend/Auth';
+//import { logoutUser } from '@/backend/Auth';
 const Navbar = () => {
   const { user, setUser } = useStateContext()
 
   return (
     <Nav>
-      <Logo className="poppins-medium"onClick={() => logOut(setUser)} href="/">chainLink.</Logo>
+      <Logo className="poppins-medium"onClick={() => {}} href="/">chainLink.</Logo>
       <Home></Home>
       <NavLinks>
         
@@ -23,8 +23,8 @@ const Navbar = () => {
         
         : 
         <>
-        <ButtonLink href="/auth/login">Login</ButtonLink>
-        <ButtonLink href="/auth/signup">Sign Up</ButtonLink>
+        <ButtonLink href="/auth/authenticate">Login</ButtonLink>
+        
         </>
 }
       </NavLinks>
