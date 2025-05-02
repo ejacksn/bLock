@@ -1,8 +1,18 @@
 import Head from 'next/head' //use instead of head
 import { StateContext } from "@/context/StateContext"
 import { createGlobalStyle } from 'styled-components'
+import {ThirdwebProvider, ChainId, createThirdwebClient} from '@thirdweb-dev/react'
+
+
+
+
 
 export const GlobalStyle = createGlobalStyle`
+
+
+
+
+
   * {
 
     margin: 0;
@@ -74,7 +84,10 @@ export const GlobalStyle = createGlobalStyle`
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
+    <ThirdwebProvider 
+    clientId="0792a2d3176383a34172d876a79c4442"
+    activeChain="binance-testnet"
+    >
         <Head>
           <title>bLock</title>
           <meta name='description' content='App for creating virtual blockchain time capsules'/>
@@ -96,6 +109,6 @@ export default function App({ Component, pageProps }) {
       <StateContext>
         <Component {...pageProps} />
       </StateContext>
-    </>
+    </ThirdwebProvider>
   )
 }

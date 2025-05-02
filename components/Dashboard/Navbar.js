@@ -8,6 +8,8 @@ import { GlobalStyle } from '@/pages/_app';
 
 import { useRouter } from 'next/router';
 
+import { useDisconnect } from '@thirdweb-dev/react';
+
 
 
 //import { logoutUser } from '@/backend/Auth';
@@ -16,8 +18,10 @@ const Navbar = () => {
   const router = useRouter() //import router for redirecting
   const { authenticated, setAuthenticated } = useStateContext()
   const { wallet, setWallet } = useStateContext()
+  const disconnect = useDisconnect() //import disconnect function from thirdweb
 
   function logoutUser() {
+    disconnect();//disconnect wallet
     setAuthenticated(false); //set authenticated to false
     setWallet(null); //set wallet address to null
     router.push('/'); //redirect to home page

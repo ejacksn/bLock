@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStateContext } from '@/context/StateContext'
 //import {login, isEmailInUse} from '@/backend/Auth'
 
 //import { loginUser } from '@/backend/Auth' //login fucntion 
+
+import { useAddress, ConnectWallet, useConnect } from '@thirdweb-dev/react'
 import Link from 'next/link'
 import Navbar from '@/components/Dashboard/Navbar'
 
 import PageSkeleton from '@/components/PageSkeleton'
+import { Main } from 'next/document'
 const Login = () => {
 
-  const {authenticated, setAuthenticated } = useStateContext()
-  //const { user, setUser } = useStateContext()
+  const {authenticated, setAuthenticated } = useStateContext(); //var to track if user logged in
   const { wallet, setWallet } = useStateContext()
-  
+  const address = useAddress() //get wallet address
 
 
   const router = useRouter()
@@ -22,29 +24,13 @@ const Login = () => {
   const [loginError, setLoginError] = useState('') //state to hold error message
 
 
-  async function handleLogin(){
-
-    setLoginError('') //clear error message
-    
-
-    if (!wallet) { // can't log in with blank fields, duh
-      setLoginError("Wallet Address Required.");
-      return;
-
-    }
-    try{
-      // PUT WALLET AUTHENTICATION AWAIT HERE
+  useEffect(() => {
+    if (address){ //if address set by connecting wallet
+      setWallet(address) //set wallet address in state context
       setAuthenticated(true) //set authenticated to true
-      setWallet(wallet) //set wallet address
       router.push('/dashboard') //redirect to dashboard
     }
-    catch(error){
-      console.log('login error', error)
-      setLoginError(error.message) //set error message
-      
-    }
-    
-  }
+  }, [address, setWallet, setAuthenticated, router]);
 
   return (
     <>
@@ -57,16 +43,8 @@ const Login = () => {
           
           
           
-          <Input type="text" placeholder="Wallet Address"value={wallet} onChange={(e) => setWallet(e.target.value)}/>
-
+          <ConnectWallet theme="dark"></ConnectWallet>
           
-
-          
-
-          {loginError? <ErrorDiv>{loginError}</ErrorDiv> : null} {/*show error div on error*/}
-
-          <MainButton onClick={()=>{handleLogin()}}>Connect Wallet</MainButton>
-
           </OrganizingDiv>
 
       </Section>
@@ -182,6 +160,24 @@ const ErrorDiv = styled.div`
   
   padding: 5px;
 `;
+
+const ConnectWalletStyled = styled(ConnectWallet)`
+  background-color: var(--color3);
+
+  color: #d0d6b3;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+
+  height: 40px;
+  border-radius: 8px;
+  width: 50%;
+  align-self: center;
+  border: none;
+  &:hover {
+    background-color: #D0D6B3;
+    color: #061003;
+  }
+`
 
 
 export default Login
