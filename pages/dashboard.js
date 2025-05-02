@@ -16,6 +16,17 @@ import PageSkeleton from '@/components/PageSkeleton'
 
 const Dashboard = () => {
 
+
+  const { authenticated, setAuthenticated } = useStateContext(); //var to track if user logged in
+  const { wallet, setWallet } = useStateContext()
+  const router = useRouter() //import router for redirecting
+
+  useEffect(() => { ////useffect to kick non logged out users 
+    if(!authenticated){
+      router.push('/')
+    
+  }}, [authenticated, router]);
+
 //   
 return(
   <>
