@@ -92,10 +92,11 @@ const NavLeft = styled.div`
 const NavLinks = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   
-  width: min(40%, 400px);
+  width: 80%;
+  height: 30%
   
 
 `;
@@ -124,6 +125,7 @@ const LogoutButton = styled.button`
   padding: 0.5rem;
   font-family: poppins;
   align-self: flex-end;
+  width: 80%;
 
   &:hover {
     background-color: #061003; //color swap when hover
@@ -139,7 +141,7 @@ const LogoutButton = styled.button`
 const NavEnd = styled.div`
   display: flex;
   width:50%;
-  justify-content: flex-end;
+  justify-content: center;
 `
 const UserText = styled.span`
 color: #D0D6B3;

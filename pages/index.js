@@ -18,7 +18,7 @@ export default function Home() {
         <ScrollingText />
         <Wrapper>
       <Title>bLock</Title>
-      <Subtitle>Lock messages or cryptocurrency until a specified date in the future.</Subtitle>
+      <Subtitle>Lock cryptocurrency until a specified date in the future.</Subtitle>
       <Link href="/auth/authenticate">
         <Button>Connect Wallet</Button>
       </Link>
